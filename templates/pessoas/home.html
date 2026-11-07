@@ -20,7 +20,7 @@
             justify-content: center;
             position: relative;
             color: #fff;
-            background-image: url("{% get_media_prefix %}banner/banner_placeholder.jpg");
+            background-image: url("{% static 'pessoas/img/banner.jpg' %}");
             background-size: cover;
             background-position: center;
         }
@@ -42,56 +42,12 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
 
-        /* Homenagem ao avô Satilo */
-        .navbar-brand-container {
-            display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-        }
-        .tribute-text-wrapper {
-            overflow: hidden;
-            white-space: nowrap;
-            margin-left: 15px;
-            position: relative;
-            max-width: 400px;
-        }
-        .tribute-text-content {
-            display: inline-block;
-            font-size: 1rem;
-            color: #000000; /* Cor preta */
-            background-color: #f0f0f0; /* Fundo cinza claro */
-            padding: 4px 8px;
-            border-radius: 4px;
-            animation: scroll-left 15s linear infinite;
-        }
-        @keyframes scroll-left {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Oculta a homenagem em telas pequenas */
-        @media (max-width: 768px) {
-            .tribute-text-wrapper {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <div class="navbar-brand-container">
-                <a class="navbar-brand" href="{% url 'home_page' %}">Satilo</a>
-                <div class="tribute-text-wrapper">
-                    <span class="tribute-text-content">
-                        Em memória do meu querido avô, Fulano Exemplo.
-                    </span>
-                </div>
-            </div>
+            <a class="navbar-brand" href="{% url 'home_page' %}">Satilo</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>

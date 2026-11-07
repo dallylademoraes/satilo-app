@@ -169,15 +169,22 @@ SUPABASE_URL = os.getenv('SUPABASE_URL')
 SUPABASE_SERVICE_ROLE_KEY = os.getenv('SUPABASE_SERVICE_ROLE_KEY')
 SUPABASE_BUCKET = os.getenv('SUPABASE_BUCKET', 'media')
 
-if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
-    raise RuntimeError('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set.')
-
-STORAGES = {
-    'default': {'BACKEND': 'pessoas.storage.SupabaseStorage'},
-    'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
-}
-supabase_base = SUPABASE_URL.rstrip('/')
-MEDIA_URL = f"{supabase_base}/storage/v1/object/public/{SUPABASE_BUCKET}/"
+if SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY:
+    # Produção: fotos no Supabase Storage
+    STORAGES = {
+        'default': {'BACKEND': 'pessoas.storage.SupabaseStorage'},
+        'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
+    }
+    supabase_base = SUPABASE_URL.rstrip('/')
+    MEDIA_URL = f"{supabase_base}/storage/v1/object/public/{SUPABASE_BUCKET}/"
+else:
+    # Desenvolvimento: fotos salvas localmente na pasta media/
+    STORAGES = {
+        'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+        'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
+    }
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

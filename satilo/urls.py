@@ -24,3 +24,6 @@ urlpatterns = [
 ]
 
 # Apenas para servir arquivos de mídia (fotos) em ambiente de desenvolvimento
+if settings.DEBUG and not settings.MEDIA_URL.startswith('http'):
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
